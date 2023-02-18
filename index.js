@@ -38,6 +38,13 @@ async function run(){
             const ITCompanies = await ITCompaniesCollection.find(query).toArray();
             res.send(ITCompanies);
         })
+
+        app.get('/ITCompanies/:worldWide', async (req, res)=>{
+            const worldWide = req.params.worldWide;
+            const query = {office: worldWide };
+            const ITCompanies = await ITCompaniesCollection.find(query).toArray();
+            res.send(ITCompanies);
+        })
     }
     finally{
 
