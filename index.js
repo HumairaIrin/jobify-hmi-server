@@ -16,11 +16,27 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 async function run(){
     const freshersJobCollection = client.db('jobifyHMI').collection('freshersJob');
+    const experiencedJobCollection = client.db('jobifyHMI').collection('experiencedJob');
+    const ITCompaniesCollection = client.db('jobifyHMI').collection('ITCompanies');
+
     try{
         app.get('/freshersJob', async (req, res)=>{
             const query = {};
             const freshersJob = await freshersJobCollection.find(query).toArray();
             res.send(freshersJob);
+        })
+
+        app.get('/experiencedJob', async (req, res)=>{
+            const query = {};
+            const experiencedJob = await experiencedJobCollection.find(query).toArray();
+            res.send(experiencedJob);
+        })
+
+        app.get('/ITCompanies/:Bangladesh', async (req, res)=>{
+            const Bangladesh = req.params.Bangladesh;
+            const query = {office: Bangladesh};
+            const ITCompanies = await ITCompaniesCollection.find(query).toArray();
+            res.send(ITCompanies);
         })
     }
     finally{
